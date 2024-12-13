@@ -6,14 +6,18 @@
     "test": "test"
   },
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
     "generate-types": "typechain --target=ethers-v5 'build/contracts/*.json'"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
-  "devDependencies": {
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.1.0",
     "@typechain/ethers-v5": "^11.1.2",
+    "dotenv": "^16.4.7",
+    "ethers": "^5.7.2",
     "typechain": "^8.3.2"
   }
 }

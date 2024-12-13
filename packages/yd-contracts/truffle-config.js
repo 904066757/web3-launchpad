@@ -1,13 +1,15 @@
 require("dotenv").config();
-const HDWalletProvider = require("@truffle/hdwallet-provider");
+const { ethers } = require("ethers");
 
-// 添加错误处理
 const provider = () => {
   try {
-    return new HDWalletProvider(
-      process.env.PRIVATE_KEY,
+    // 创建 provider 和 wallet
+    const provider = new ethers.JsonRpcProvider(
       "https://eth-sepolia.public.blastapi.io"
     );
+    const wallet = new ethers.Wallet(process.env.PRIVATE_KEY, provider);
+
+    return provider;
   } catch (error) {
     console.error("Error creating provider:", error);
     throw error;
@@ -22,7 +24,6 @@ module.exports = {
       gas: 5500000,
       gasPrice: 20000000000,
       timeoutBlocks: 200,
-      skipDryRun: true,
       networkCheckTimeout: 10000,
       skipDryRun: true,
     },
