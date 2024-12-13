@@ -6,7 +6,6 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "generate-types": "typechain --target=ethers-v5 'build/contracts/*.json'"
   },
   "keywords": [],
