@@ -1,0 +1,9 @@
+{
+  "network": "localhost",
+  "MetaCoinUpgradeable": {
+    "proxy": "0x2Bd4838e89EFaf8E06Bc0aeB7f2ACd635B64a391",
+    "implementation": "0xD7E04AF8d2E362A73E250E5c808D9621395986Ca",
+    "admin": "0x34986cf26185244df73492a25829c7B227201dF2",
+    "deployer": "0x0D81592Ef1b1E796b5e34461B0D68CA415c0E0da"
+  }
+}
