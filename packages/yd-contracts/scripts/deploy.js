@@ -12,7 +12,7 @@ async function main() {
   const [deployer] = await ethers.getSigners();
   console.log("Deploying contracts with the account:", deployer.address);
 
-  // 获取合约工厂
+  // 使用 TypeChain 生成的工厂
   const Contract = await ethers.getContractFactory(contractName);
   console.log(`Deploying ${contractName}...`);
   
@@ -29,24 +29,23 @@ async function main() {
   const implementationAddress = await upgrades.erc1967.getImplementationAddress(proxyAddress);
   const adminAddress = await upgrades.erc1967.getAdminAddress(proxyAddress);
 
-  // 保存部署信息到文件
+  // 保存部署信息
   const deployments = {
     network: network.name,
     [contractName]: {
       proxy: proxyAddress,
       implementation: implementationAddress,
       admin: adminAddress,
-      deployer: deployer.address
+      deployer: deployer.address,
+      abi: JSON.parse(Contract.interface.formatJson()) // 保存 ABI
     }
   };
 
-  // 确保目录存在
   const deployDir = path.join(__dirname, '../deployments');
   if (!fs.existsSync(deployDir)){
     fs.mkdirSync(deployDir);
   }
 
-  // 写入部署信息
   fs.writeFileSync(
     path.join(deployDir, `${network.name}.json`),
     JSON.stringify(deployments, null, 2)

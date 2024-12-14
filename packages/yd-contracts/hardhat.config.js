@@ -1,6 +1,7 @@
 require("dotenv").config();
-require("@nomicfoundation/hardhat-toolbox");
+require("@nomiclabs/hardhat-ethers"); // 改为使用 nomiclabs 的 ethers 插件
 require('@openzeppelin/hardhat-upgrades');
+require('@typechain/hardhat');
 
 // 检查环境变量
 const PRIVATE_KEY = process.env.PRIVATE_KEY;
@@ -8,6 +9,7 @@ if (!PRIVATE_KEY) {
   throw new Error("Please set your PRIVATE_KEY in a .env file");
 }
 
+/** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
   solidity: {
     version: "0.8.20",
@@ -30,10 +32,16 @@ module.exports = {
       chainId: 11155111
     }
   },
-  // 添加保存代理地址的配置
   paths: {
-    // 将在这个目录下保存代理合约的部署信息
+    sources: "./contracts",
+    tests: "./test",
     cache: "./cache",
     artifacts: "./artifacts"
+  },
+  typechain: {
+    outDir: "typechain-types",
+    target: "ethers-v5", // 改为 ethers-v5
+    alwaysGenerateOverloads: false,
+    externalArtifacts: ['externalArtifacts/*.json']
   }
 }
